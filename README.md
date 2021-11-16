@@ -1,2 +1,2 @@
 # ft_printf_bonus
-printf_with_flgs
+printf_with_some_flgs
