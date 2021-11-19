@@ -20,6 +20,7 @@ void tereshkova(t_flags *flg, size_t *p_i, ssize_t *p_res, char begin_flg)
 	flg->f_zero = 0;
 	flg->f_minus = 0;
 	flg->f_prison = 0;
+	flg->f_prec = 0;
 	flg->width = 0;
 	flg->prec = 0;
 	if (begin_flg == 0)
@@ -56,7 +57,7 @@ ssize_t	for_easy_string(const char *form, size_t *p_i, t_flags *flgs)
 	return (res);
 }
 
-ssize_t	print_percent(char *form, size_t *i, t_flags *flgs)
+ssize_t	print_percent(t_flags *flgs) // need corrective
 {
 	(*i)++;
 	if (write(1, "%", 1) < 0)
@@ -64,11 +65,25 @@ ssize_t	print_percent(char *form, size_t *i, t_flags *flgs)
 	return (1);
 }
 
-char check_spec(char c)
+char check_spec(t_flags *f, char c) //need correct
 {
-	if (c != 'c' && c != 's' && c != 'p' && c != 'd' && c != 'i' && c != 'x'
-	&& c != 'X' && c != 'u' && c != '%')
-		return (1);
-
-	return (0);
+	if (c == 'c' && !(f->f_space) && !(f->f_zero) && !(f->f_prison) && \
+	!(f->f_plus) && !(f->f_prec))
+		return (0);
+	else if (c == 's' && !(f->f_space) && !(f->f_zero) && !(f->f_prison) && \
+	!(f->f_plus))
+		return (0);
+	else if (c == 'p' && !(f->f_space) && !(f->f_zero) && !(f->f_prison) && \
+	!(f->f_plus) && !(f->f_prec))
+		return (0);
+	else if ((c == 'd' || c == 'i') && !(f->f_prison))
+		return (0);
+	else if ((c == 'x' || c == 'X') && !(f->f_space) && !(f->f_plus))
+		return (0);
+	else if (c == 'u' && !(f->f_space) && !(f->f_prison) && !(f->f_plus))
+		return (0);
+	else if (c == '%' && !(f->f_space) && !(f->f_zero) && !(f->f_prison) && \
+	!(f->f_plus) && !(f->f_prec) && !(f->f_minus))
+		return (0);
+	return (1);
 }

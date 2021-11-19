@@ -26,6 +26,7 @@ int	ft_printf(const char *form, ...)
 	va_start(arg, form);
 	while (form[i] && flgs->f_correct == 0)
 	{
+		tereshkova(flgs, &i, &res, 0);
 		res += for_easy_string(form, &i, flgs);
 		if (flgs->f_correct != 0)
 			break;
