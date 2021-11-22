@@ -29,35 +29,7 @@ void tereshkova(t_flags *flg, size_t *p_i, ssize_t *p_res, char begin_flg)
 	*p_res = 0;
 }
 
-int print_error(t_flags *flgs)
-{
-	if (!flgs || flgs->f_correct == 'm')
-		write(2, "malloc error\n", 13);
-	else if (flgs->f_correct == 'w')
-		write(2, "write error\n", 12);
-	else if (flgs->f_correct == 'f')
-		write(2, "format error\n", 13);
-	free(flgs);
-	return (-1);
-}
-
-ssize_t	for_easy_string(const char *form, size_t *p_i, t_flags *flgs)
-{
-	ssize_t	res;
-
-	res = 0;
-	while (form[*i] != '%' && form[*i])
-	{
-		flgs->tmp_res = write(1, (form + (*i)), 1);
-		if (flgs->tmp_res < 0)
-			flgs->f_correct = 'w';
-		res += flgs->tmp_res;
-		(*i)++;
-	}
-	return (res);
-}
-
-ssize_t	print_percent(t_flags *flgs) // need corrective
+size_t	print_percent(t_flags *flgs) // need corrective
 {
 	(*i)++;
 	if (write(1, "%", 1) < 0)
@@ -65,25 +37,42 @@ ssize_t	print_percent(t_flags *flgs) // need corrective
 	return (1);
 }
 
-char check_spec(t_flags *f, char c) //need correct
+void	print_no_width_x(unsigned long int p, t_flags *flgs, char *base)
 {
-	if (c == 'c' && !(f->f_space) && !(f->f_zero) && !(f->f_prison) && \
-	!(f->f_plus) && !(f->f_prec))
-		return (0);
-	else if (c == 's' && !(f->f_space) && !(f->f_zero) && !(f->f_prison) && \
-	!(f->f_plus))
-		return (0);
-	else if (c == 'p' && !(f->f_space) && !(f->f_zero) && !(f->f_prison) && \
-	!(f->f_plus) && !(f->f_prec))
-		return (0);
-	else if ((c == 'd' || c == 'i') && !(f->f_prison))
-		return (0);
-	else if ((c == 'x' || c == 'X') && !(f->f_space) && !(f->f_plus))
-		return (0);
-	else if (c == 'u' && !(f->f_space) && !(f->f_prison) && !(f->f_plus))
-		return (0);
-	else if (c == '%' && !(f->f_space) && !(f->f_zero) && !(f->f_prison) && \
-	!(f->f_plus) && !(f->f_prec) && !(f->f_minus))
-		return (0);
-	return (1);
+	if (p/16 > 0)
+		print_no_width_x(p/16, flgs, base);
+	if (write(1, (base + (p % 16)), 1) < 0)
+		flgs->f_correct = 'w';
+}
+
+char	*get_base(char *base, char c)
+{
+	if (c == 'x')
+		base = "0123456789abcdef";
+	else if (c == 'X')
+		base = "0123456789ABCDEF";
+	else
+		base = "0123456789";
+	return (base);
+}
+
+size_t	count_size(long int n, int base, t_flags *flgs)
+{
+	size_t	res;
+
+	res = 0;
+	if (n <= 0)
+		res++;
+	while (n != 0)
+	{
+		n /= base;
+		res++;
+	}
+	if (flgs->f_prison)
+		res += 2;
+	if (flgs->width > res)
+		res = flgs->width;
+	if (flgs->f_prec && flgs->prec > res)
+		res = flgs->prec;
+	return (res);
 }
