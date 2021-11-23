@@ -26,12 +26,12 @@ static void	write_flags(char c, t_flags *flgs)
 		(flgs->f_plus)++;
 }
 
-char	parse_flags(char *s, t_flags *flgs, size_t *i)
+char	parse_flags(const char *s, t_flags *flgs, size_t *i)
 {
 	while (s[++(*i)] == ' ' || s[*i] == '0' || s[*i] == '#' || s[*i] == '-' ||
 	s[*i] == '+')
 	{
-		write_flags(s[i], flgs);
+		write_flags(s[*i], flgs);
 		if (flgs->f_space > 1 || flgs->f_zero > 1 || flgs->f_prison > 1 || \
 		flgs->f_minus > 1 || flgs->f_plus > 1)
 		{
@@ -48,7 +48,7 @@ char	parse_flags(char *s, t_flags *flgs, size_t *i)
 	return (1);
 }
 
-char	parse_num(char *form, int *a, size_t *i, t_flags *flgs)
+char	parse_num(const char *form, int *a, size_t *i, t_flags *flgs)
 {
 	unsigned int	res;
 
@@ -85,7 +85,7 @@ size_t	print_result(va_list *arg, char spec, t_flags *flgs)
 		return (print_percent(flgs));
 }
 
-char	check_spec(t_flags *f, char c) //need correct
+char	check_spec(t_flags *f, char c)
 {
 	if (c == 'c' && !(f->f_space) && !(f->f_zero) && !(f->f_prison) && \
 	!(f->f_plus) && !(f->f_prec))

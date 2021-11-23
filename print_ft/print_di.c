@@ -35,21 +35,24 @@ static void	add_di_prec(char *s, t_flags *flgs, int *i)
 {
 	size_t	j;
 	char	*s2;
+	char	flg;
 
 	j = 0;
-	s2 = s + flgs->prec - *i;
+	flg = (s[0] == '-');
+	s2 = s + flgs->prec - (*i - flg);
 	while (s[j])
 		j++;
-	s2[j] = '\0';
-	while (--j > 0)
+	s2[j + flg] = '\0';
+	while ((--j - flg) > 0)
 		s2[j] = s[j];
 	s2[j] = s[j];
-	while ((s + j) < s2)
-		s[j++] = '0';
-	*i = flgs->prec;
+	j--;
+	while ((s + (++j)) < s2 + flg)
+		s[j] = '0';
+	*i = flgs->prec + flg;
 }
 
-static char	*create_di_string(char *s, t_flags *flgs, long int num)
+static char	*create_di_string(char *s, t_flags *flgs, long int num, size_t *t)
 {
 	int	i;
 
@@ -57,10 +60,15 @@ static char	*create_di_string(char *s, t_flags *flgs, long int num)
 	count_di_i(s, &i, num);
 	s[i] = '\0';
 	di_to_a(num, i - 1, s);
-	if (flgs->f_prec && flgs->prec > i)
+	if (flgs->f_prec && flgs->prec > (i - (s[0] == '-')))
 		add_di_prec(s, flgs, &i);
-	if (flgs->f_space || flgs->f_plus)
-		i = add_di_plus_or_space(s, flgs, i);
+	if (num == 0 && flgs->f_prec && flgs->prec == 0)
+	{
+		*t = 1;
+		s[!(*t)] = '\0';
+	}
+	if ((flgs->f_space || flgs->f_plus) && num >= 0)
+			i = add_di_plus_or_space(s, flgs, i, t);
 	if (flgs->width > i)
 		return (create_u_w_string(s, flgs, i));
 	return (s);
@@ -73,6 +81,8 @@ size_t	print_num(va_list *arg, t_flags *flgs)
 	size_t	size;
 
 	num = va_arg(*arg, int);
+	if (num < 0)
+		flgs->f_space = 0;
 	size = count_size(num, 10, flgs);
 	s = malloc(sizeof(char) * (size + 1));
 	if (!s)
@@ -81,7 +91,7 @@ size_t	print_num(va_list *arg, t_flags *flgs)
 		return (0);
 	}
 	s[size] = '\0';
-	s = create_di_string(s, flgs, num);
+	s = create_di_string(s, flgs, num, &size);
 	if (write(1, s, size) < 0)
 		flgs->f_correct = 'w';
 	free(s);

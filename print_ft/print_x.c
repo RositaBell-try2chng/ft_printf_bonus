@@ -49,7 +49,7 @@ unsigned int n)
 	if (flgs->f_prison)
 	{
 		s[i++] = '0';
-		s[i++] = 'x';
+		s[i++] = base[16];
 	}
 	count_x_i(&i, n);
 	s[i] = '\0';
@@ -71,9 +71,9 @@ size_t	print_x_num(va_list *arg, t_flags *flgs, char spec)
 	n = va_arg(*arg, unsigned int);
 	size = count_size(n, 16, flgs);
 	if (spec == 'x')
-		base = "0123456789abcdef";
+		base = "0123456789abcdefx";
 	else
-		base = "0123456789ABCDEF";
+		base = "0123456789ABCDEFX";
 	s = malloc((size + 1) * sizeof(char));
 	if (!s)
 	{

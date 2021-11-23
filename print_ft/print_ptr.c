@@ -39,12 +39,12 @@ size_t	print_ptr(va_list *arg, t_flags *flgs)
 		return (print_null_ptr(flgs));
 	if (flgs->width <= 14)
 	{
-		print_no_width_x(p, flgs, "0123456789abcdef");
+		print_no_width_x(p, flgs, "0123456789abcdef", 1);
 		return (14);
 	}
 	if (flgs->f_minus)
 	{
-		print_no_width_x(p, flgs, "0123456789abcdef");
+		print_no_width_x(p, flgs, "0123456789abcdef", 1);
 		while (++i < flgs->width - 14)
 			if (write(1, " ", 1) < 0)
 				flgs->f_correct = 'w';
@@ -53,6 +53,6 @@ size_t	print_ptr(va_list *arg, t_flags *flgs)
 	while (++i < flgs->width - 14)
 		if (write(1, " ", 1) < 0)
 			flgs->f_correct = 'w';
-	print_no_width_x(p, flgs, "0123456789abcdef");
+	print_no_width_x(p, flgs, "0123456789abcdef", 1);
 	return ((size_t)flgs->width);
 }

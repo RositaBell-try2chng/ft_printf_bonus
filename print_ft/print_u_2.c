@@ -15,17 +15,19 @@ static char	*create_u_w_right(char *s, t_flags *flgs, size_t i, char c)
 {
 	size_t	j;
 	char	*s2;
+	char	flg;
 
 	j = 0;
+	flg = ((s[0] == '-' || s[0] == ' ') && flgs->f_zero);
 	s2 = s + flgs->width - i;
 	while (s[j])
 		j++;
-	s2[j] = '\0';
-	while (--j > 0)
+	s2[j + flg] = '\0';
+	while ((--j - flg) > 0)
 		s2[j] = s[j];
 	s2[j] = s[j];
 	j--;
-	while ((s + (++j)) < s2)
+	while ((s + (++j)) < s2 + flg)
 		s[j] = c;
 	return (s);
 }

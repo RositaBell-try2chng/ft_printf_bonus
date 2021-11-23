@@ -30,8 +30,8 @@ int	ft_printf(const char *form, ...)
 		res += for_easy_string(form, &i, flgs);
 		if (flgs->f_correct != 0)
 			break;
-		res += for_format_string(&arg, form, flgs, &i);
-		i++;
+		if (form[i] == '%')
+			res += for_format_string(&arg, form, flgs, &i);
 	}
 	va_end(arg);
 	if (flgs->f_correct != 0)
@@ -40,7 +40,7 @@ int	ft_printf(const char *form, ...)
 	return ((int)res);
 }
 
-size_t	for_easy_string(const char *form, size_t *p_i, t_flags *flgs)
+size_t	for_easy_string(const char *form, size_t *i, t_flags *flgs)
 {
 	size_t	res;
 
@@ -56,33 +56,8 @@ size_t	for_easy_string(const char *form, size_t *p_i, t_flags *flgs)
 	return (res);
 }
 
-/*size_t for_format_string(va_list *arg, char *form, t_flags *flgs, size_t *i)
-{
-	size_t	res;
-
-	res = 0;
-	if (parse_flags(form, flgs, i) == 0)
-		res = 1;
-	if (parse_num(form, &(flgs->width), i, flgs) == 0)
-		res = 1;
-	if (form[*i] == '.')
-	{
-		(*i)++;
-		flgs->f_prec = 1;
-		if (parse_num(form, &(flgs->prec), i, flgs) == 0)
-			res = 1;
-	}
-	if (check_spec(flgs, form[*i]))
-	{
-		flgs->f_correct = 'f';
-		res = 1;
-	}
-	if (!res)
-		res = print_result(arg, form[(*i)++], flgs);
-	return (res);
-}*/
-
-size_t for_format_string(va_list *arg, char *form, t_flags *flgs, size_t *i)
+size_t for_format_string(va_list *arg, const char *form, t_flags *flgs, \
+		size_t *i)
 {
 	if (parse_flags(form, flgs, i) == 0)
 		return (1);
