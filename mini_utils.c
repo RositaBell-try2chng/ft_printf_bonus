@@ -66,6 +66,8 @@ size_t	count_size(long int n, int base, t_flags *flgs)
 		n /= base;
 		res++;
 	}
+	if (flgs->f_space)
+		res++;
 	if (flgs->f_prison)
 		res += 2;
 	if (flgs->width > res)

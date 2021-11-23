@@ -40,8 +40,7 @@ static void	add_u_prec(char *s, t_flags *flgs, size_t *i)
 	*i = flgs->prec;
 }
 
-static char	*create_u_string(char *s, t_flags *flgs, size_t *size, \
-unsigned int u)
+static char	*create_u_string(char *s, t_flags *flgs, unsigned int u)
 {
 	size_t	i;
 
@@ -71,24 +70,9 @@ size_t	print_u_num(va_list *arg, t_flags flgs)
 		return (0);
 	}
 	s[size] = '\0';
-	s = create_u_string(s, flgs, size, u);
+	s = create_u_string(s, flgs, u);
 	if (write(1, s, size) < 0)
 		flgs->f_correct = 'w';
 	free(s);
 	return (size);
 }
-
-/*
- * ' ' -
- * '-'
- * '+' -
- * '.'
- * '0'
- * '#' -
- * флаг 0 в сочетании с точностью игнорирутеся
- * флаг 0 в сочетании с - игнорирутеся
- * -
- * -.
- * .
- * 0
- */

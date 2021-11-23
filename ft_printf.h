@@ -36,6 +36,8 @@ size_t	count_size(long int n, int base);
 char	*create_x_w_string(char *s, t_flags *flgs, size_t i);
 size_t	print_u_num(va_list *arg, t_flags flgs);
 char	*create_u_w_string(char *s, t_flags *flgs, size_t i);
+void	add_di_plus_or_space(char *s, t_flags *flgs, size_t i);
+char	*create_di_w_string(char *s, t_flags *flgs, size_t i);
 
 typedef struct	printf_var
 {

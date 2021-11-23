@@ -78,7 +78,7 @@ size_t	print_x_num(va_list *arg, t_flags *flgs, char spec)
 		return (0);
 	}
 	s[size] = '\0';
-	s = create_x_string(s, base, flgs, size);
+	s = create_x_string(s, base, flgs, n);
 	if (write(1, s, size) < 0)
 		flgs->f_correct = 'w';
 	free(s);
