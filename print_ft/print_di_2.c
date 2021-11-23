@@ -1,6 +1,6 @@
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
-size_t	add_di_plus_or_space(char *s, t_flags *flgs, size_t i)
+size_t	add_di_plus_or_space(char *s, t_flags *flgs, int i)
 {
 	char	*s2;
 	size_t	res;

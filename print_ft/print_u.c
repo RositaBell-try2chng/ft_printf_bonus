@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 static void	count_u_i(size_t *i, unsigned int u)
 {
@@ -48,21 +48,21 @@ static char	*create_u_string(char *s, t_flags *flgs, unsigned int u)
 	count_u_i(&i, u);
 	s[i] = '\0';
 	u_to_a(u, i - 1, s);
-	if (flgs->f_prec && flgs->prec > i))
+	if (flgs->f_prec && (size_t)(flgs->prec) > i)
 		add_u_prec(s, flgs, &i);
-	if (flgs->width > i)
+	if ((size_t)(flgs->width) > i)
 		return (create_u_w_string(s, flgs, i));
 	return (s);
 }
 
-size_t	print_u_num(va_list *arg, t_flags flgs)
+size_t	print_u_num(va_list *arg, t_flags *flgs)
 {
 	unsigned int	u;
 	size_t			size;
 	char			*s;
 
 	u = va_arg(*arg, unsigned int);
-	size = count_size(u, 10);
+	size = count_size(u, 10, flgs);
 	s = malloc(sizeof(char) * (size + 1));
 	if (!s)
 	{

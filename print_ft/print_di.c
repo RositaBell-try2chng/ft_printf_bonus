@@ -1,6 +1,6 @@
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
-static void	count_di_i(char *s, size_t *i, int num)
+static void	count_di_i(char *s, int *i, int num)
 {
 	if (num == 0)
 	{
@@ -31,7 +31,7 @@ static void di_to_a(int num, size_t i, char *s)
 		s[i] = -(num % 10) + '0';
 }
 
-static void	add_di_prec(char *s, t_flags *flgs, size_t *i)
+static void	add_di_prec(char *s, t_flags *flgs, int *i)
 {
 	size_t	j;
 	char	*s2;
@@ -51,16 +51,16 @@ static void	add_di_prec(char *s, t_flags *flgs, size_t *i)
 
 static char	*create_di_string(char *s, t_flags *flgs, long int num)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	count_di_i(s, &i, num);
 	s[i] = '\0';
 	di_to_a(num, i - 1, s);
-	if (flgs->f_prec && flgs->prec > i))
+	if (flgs->f_prec && flgs->prec > i)
 		add_di_prec(s, flgs, &i);
 	if (flgs->f_space || flgs->f_plus)
-		i = add_di_plus_or_space(s, flgs, &i);
+		i = add_di_plus_or_space(s, flgs, i);
 	if (flgs->width > i)
 		return (create_u_w_string(s, flgs, i));
 	return (s);
@@ -73,7 +73,7 @@ size_t	print_num(va_list *arg, t_flags *flgs)
 	size_t	size;
 
 	num = va_arg(*arg, int);
-	size = count_size(num, 10);
+	size = count_size(num, 10, flgs);
 	s = malloc(sizeof(char) * (size + 1));
 	if (!s)
 	{

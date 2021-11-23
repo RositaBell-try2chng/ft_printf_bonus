@@ -1,8 +1,8 @@
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 static size_t	print_null_string(t_flags *flgs)
 {
-	size_t	i;
+	int	i;
 
 	i = -1;
 	if (flgs->f_prec && flgs->prec < 6)
@@ -31,7 +31,7 @@ static size_t	print_null_string(t_flags *flgs)
 
 static void	print_width_string(const char *s, t_flags *flgs, size_t i)
 {
-	ssize_t cnt;
+	size_t cnt;
 
 	cnt = -1;
 	if (flgs->f_minus)
@@ -63,11 +63,11 @@ size_t	print_string(va_list *arg, t_flags *flgs)
 	s = va_arg(*arg, const char *);
 	if (!s)
 		return (print_null_string(flgs));
-	while (s[i] && (!flgs->f_prec || i < flgs->prec)
+	while (s[i] && (!flgs->f_prec || i < (size_t)(flgs->prec)))
 		i++;
-	if (flgs->width > i)
+	if ((size_t)(flgs->width) > i)
 	{
-		print_width_string(s, flgs, i));
+		print_width_string(s, flgs, i);
 		return ((ssize_t)flgs->width);
 	}
 	if (write(1, s, i) < 0)

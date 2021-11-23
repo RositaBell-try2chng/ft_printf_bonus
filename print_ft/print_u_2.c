@@ -1,8 +1,8 @@
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 static char	*create_u_w_left(char *s, t_flags *flgs, size_t i)
 {
-	while (i < flgs->width)
+	while (i < (size_t)(flgs->width))
 	{
 		s[i] = ' ';
 		i++;
@@ -17,12 +17,14 @@ static char	*create_u_w_right(char *s, t_flags *flgs, size_t i, char c)
 	char	*s2;
 
 	j = 0;
-	s2 = s + flgs->width - i);
+	s2 = s + flgs->width - i;
 	while (s[j])
 		j++;
 	s2[j] = '\0';
-	while (--j >= 0)
+	while (--j > 0)
 		s2[j] = s[j];
+	s2[j] = s[j];
+	j--;
 	while ((s + (++j)) < s2)
 		s[j] = c;
 	return (s);

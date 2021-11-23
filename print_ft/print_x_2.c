@@ -1,6 +1,6 @@
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
-static char	*create_x_w_left(char *s, t_flags *flgs, size_t i)
+static char	*create_x_w_left(char *s, t_flags *flgs, int i)
 {
 	while (i < flgs->width)
 	{
@@ -21,8 +21,10 @@ static char	*create_x_w_right(char *s, t_flags *flgs, size_t i, char c)
 	while (s[j])
 		j++;
 	s2[j] = '\0';
-	while (--j >= 0)
+	while (--j > 0)
 		s2[j] = s[j];
+	s2[j] = s[j];
+	j--;
 	while ((s + (++j) + (2 * (flgs->f_prison))) < s2)
 		s[2 * flgs->f_prison + j] = c;
 	return (s);

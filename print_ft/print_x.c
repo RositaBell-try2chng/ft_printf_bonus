@@ -1,6 +1,6 @@
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
-static	void add_x_prec(char *s, t_flags *flgs, size_t *i)
+static	void add_x_prec(char *s, t_flags *flgs, int *i)
 {
 	size_t	j;
 	char	*s2;
@@ -19,7 +19,7 @@ static	void add_x_prec(char *s, t_flags *flgs, size_t *i)
 	*i = flgs->prec + 2 * (flgs->f_prison);
 }
 
-static void	count_x_i(size_t *i, unsigned int n)
+static void	count_x_i(int *i, unsigned int n)
 {
 	if (n == 0)
 	{
@@ -43,7 +43,7 @@ static void i_to_a(unsigned int n, char *s, char *base, size_t i)
 static char	*create_x_string(char *s, char *base, t_flags *flgs, \
 unsigned int n)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	if (flgs->f_prison)
@@ -70,7 +70,10 @@ size_t	print_x_num(va_list *arg, t_flags *flgs, char spec)
 
 	n = va_arg(*arg, unsigned int);
 	size = count_size(n, 16, flgs);
-	base = get_base(base, spec);
+	if (spec == 'x')
+		base = "0123456789abcdef";
+	else
+		base = "0123456789ABCDEF";
 	s = malloc((size + 1) * sizeof(char));
 	if (!s)
 	{
@@ -84,24 +87,3 @@ size_t	print_x_num(va_list *arg, t_flags *flgs, char spec)
 	free(s);
 	return (size);
 }
-
-
-/*
- * ' ' -
- * '-'
- * '+' -
- * '.'
- * '0'
- * '#'
- * флаг 0 в сочетании с точностью игнорирутеся
- * флаг 0 в сочетании с - игнорирутеся
- *
- * -
- * -#
- * -.
- * -#.
- * .
- * .#
- * 0
- * 0#
- */

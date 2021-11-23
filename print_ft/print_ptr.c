@@ -1,8 +1,8 @@
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 static size_t	print_null_ptr(t_flags *flgs)
 {
-	size_t	i;
+	int	i;
 
 	i = -1;
 	if (flgs->width <= 3)
@@ -28,10 +28,10 @@ static size_t	print_null_ptr(t_flags *flgs)
 	return ((size_t)flgs->width);
 }
 
-size_t	print_ptr(va_list *arg, t_flags flgs)
+size_t	print_ptr(va_list *arg, t_flags *flgs)
 {
 	unsigned long int	p;
-	size_t				i;
+	int					i;
 
 	i = -1;
 	p = va_arg(*arg, unsigned long int);
@@ -39,10 +39,10 @@ size_t	print_ptr(va_list *arg, t_flags flgs)
 		return (print_null_ptr(flgs));
 	if (flgs->width <= 14)
 	{
-		print_no_width_ptr(p, flgs);
+		print_no_width_x(p, flgs, "0123456789abcdef");
 		return (14);
 	}
-	if (flgs.f_minus)
+	if (flgs->f_minus)
 	{
 		print_no_width_x(p, flgs, "0123456789abcdef");
 		while (++i < flgs->width - 14)
@@ -56,14 +56,3 @@ size_t	print_ptr(va_list *arg, t_flags flgs)
 	print_no_width_x(p, flgs, "0123456789abcdef");
 	return ((size_t)flgs->width);
 }
-
-/*
- * ' ' -
- * '-'
- * '+' -
- * '.' -
- * '0' -
- * '#' -
- * else if (c == 'p' && !(f->f_space) && !(f->f_zero) && !(f->f_prison) && \
-	!(f->f_plus) && !(f->f_prec))
- */

@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 static void print_char_width(char c, size_t *cnt, t_flags *flgs)
 {
