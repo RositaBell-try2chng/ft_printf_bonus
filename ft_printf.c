@@ -56,7 +56,7 @@ size_t	for_easy_string(const char *form, size_t *p_i, t_flags *flgs)
 	return (res);
 }
 
-size_t for_format_string(va_list *arg, char *form, t_flags *flgs, size_t *i)
+/*size_t for_format_string(va_list *arg, char *form, t_flags *flgs, size_t *i)
 {
 	size_t	res;
 
@@ -80,11 +80,9 @@ size_t for_format_string(va_list *arg, char *form, t_flags *flgs, size_t *i)
 	if (!res)
 		res = print_result(arg, form[(*i)++], flgs);
 	return (res);
-}
+}*/
 
-/*size_t for_format_string(va_list *arg, char *form, t_flags *flgs, size_t
- * *i) нужно проверить работоспособность) выдавало непонятную ошибку (всегда
- * возвращает 1)
+size_t for_format_string(va_list *arg, char *form, t_flags *flgs, size_t *i)
 {
 	if (parse_flags(form, flgs, i) == 0)
 		return (1);
@@ -103,8 +101,7 @@ size_t for_format_string(va_list *arg, char *form, t_flags *flgs, size_t *i)
 		return (1);
 	}
 	return (print_result(arg, form[(*i)++], flgs));
-}*/
-
+}
 
 int print_error(t_flags *flgs)
 {

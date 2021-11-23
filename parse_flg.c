@@ -40,7 +40,7 @@ char	parse_flags(char *s, t_flags *flgs, size_t *i)
 		}
 	}
 	if ((flgs->f_zero == 1 && flgs->f_minus == 1) || (flgs->f_space == 1 && \
-	flgs->f_plus == 1))
+	flgs->f_plus == 1) || (flgs->f_zero == 1 && flgs->f_prec == 1))
 	{
 		flgs->f_correct = 'f';
 		return (0);
@@ -96,14 +96,11 @@ char	check_spec(t_flags *f, char c) //need correct
 	else if (c == 'p' && !(f->f_space) && !(f->f_zero) && !(f->f_prison) && \
 	!(f->f_plus) && !(f->f_prec))
 		return (0);
-	else if ((c == 'd' || c == 'i') && !(f->f_prison) && \
-	!(f->f_zero && f->f_prec))
+	else if ((c == 'd' || c == 'i') && !(f->f_prison))
 		return (0);
-	else if ((c == 'x' || c == 'X') && !(f->f_space) && !(f->f_plus) && \
-	!(f->f_zero && f->f_prec))
+	else if ((c == 'x' || c == 'X') && !(f->f_space) && !(f->f_plus))
 		return (0);
-	else if (c == 'u' && !(f->f_space) && !(f->f_prison) && !(f->f_plus) && \
-	!(f->f_zero && f->f_prec))
+	else if (c == 'u' && !(f->f_space) && !(f->f_prison) && !(f->f_plus))
 		return (0);
 	else if (c == '%' && !(f->f_space) && !(f->f_zero) && !(f->f_prison) && \
 	!(f->f_plus) && !(f->f_prec) && !(f->f_minus))

@@ -49,10 +49,8 @@ char	*get_base(char *base, char c)
 {
 	if (c == 'x')
 		base = "0123456789abcdef";
-	else if (c == 'X')
+	else (c == 'X')
 		base = "0123456789ABCDEF";
-	else
-		base = "0123456789";
 	return (base);
 }
 

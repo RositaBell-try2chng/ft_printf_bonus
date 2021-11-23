@@ -34,6 +34,8 @@ char	check_spec(t_flags *f, char c);
 char	*get_base(char *base, char c);
 size_t	count_size(long int n, int base);
 char	*create_x_w_string(char *s, t_flags *flgs, size_t i);
+size_t	print_u_num(va_list *arg, t_flags flgs);
+char	*create_u_w_string(char *s, t_flags *flgs, size_t i);
 
 typedef struct	printf_var
 {
