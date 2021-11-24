@@ -6,7 +6,7 @@
 /*   By: rbell <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:33:32 by rbell             #+#    #+#             */
-/*   Updated: 2021/11/16 16:40:55 by rbell            ###   ########.fr       */
+/*   Updated: 2021/11/24 10:52:01 by rbell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_printf(const char *form, ...)
 		tereshkova(flgs, &i, &res, 0);
 		res += for_easy_string(form, &i, flgs);
 		if (flgs->f_correct != 0)
-			break;
+			break ;
 		if (form[i] == '%')
 			res += for_format_string(&arg, form, flgs, &i);
 	}
@@ -56,7 +56,7 @@ size_t	for_easy_string(const char *form, size_t *i, t_flags *flgs)
 	return (res);
 }
 
-size_t for_format_string(va_list *arg, const char *form, t_flags *flgs, \
+size_t	for_format_string(va_list *arg, const char *form, t_flags *flgs, \
 		size_t *i)
 {
 	if (parse_flags(form, flgs, i) == 0)
@@ -78,7 +78,7 @@ size_t for_format_string(va_list *arg, const char *form, t_flags *flgs, \
 	return (print_result(arg, form[(*i)++], flgs));
 }
 
-int print_error(t_flags *flgs)
+int	print_error(t_flags *flgs)
 {
 	if (!flgs || flgs->f_correct == 'm')
 		write(2, "malloc error\n", 13);

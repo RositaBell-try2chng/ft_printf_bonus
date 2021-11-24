@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_x.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbell <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/24 11:10:22 by rbell             #+#    #+#             */
+/*   Updated: 2021/11/24 11:11:10 by rbell            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../ft_printf.h"
 
-static	void add_x_prec(char *s, t_flags *flgs, int *i)
+static	void	add_x_prec(char *s, t_flags *flgs, int *i)
 {
 	size_t	j;
 	char	*s2;
@@ -33,7 +45,7 @@ static void	count_x_i(int *i, unsigned int n)
 	}
 }
 
-static void i_to_a(unsigned int n, char *s, char *base, size_t i)
+static void	i_to_a(unsigned int n, char *s, char *base, size_t i)
 {
 	if (n >= 16)
 		i_to_a(n / 16, s, base, i - 1);
@@ -64,7 +76,7 @@ unsigned int n)
 size_t	print_x_num(va_list *arg, t_flags *flgs, char spec)
 {
 	char			*base;
-	char 			*s;
+	char			*s;
 	unsigned int	n;
 	size_t			size;
 

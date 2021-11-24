@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_di.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbell <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/24 11:05:20 by rbell             #+#    #+#             */
+/*   Updated: 2021/11/24 11:06:04 by rbell            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../ft_printf.h"
 
 static void	count_di_i(char *s, int *i, int num)
@@ -19,7 +31,7 @@ static void	count_di_i(char *s, int *i, int num)
 	}
 }
 
-static void di_to_a(int num, size_t i, char *s)
+static void	di_to_a(int num, size_t i, char *s)
 {
 	if (num >= 10)
 		di_to_a(num / 10, i - 1, s);
@@ -68,7 +80,7 @@ static char	*create_di_string(char *s, t_flags *flgs, long int num, size_t *t)
 		s[!(*t)] = '\0';
 	}
 	if ((flgs->f_space || flgs->f_plus) && num >= 0)
-			i = add_di_plus_or_space(s, flgs, i, t);
+		i = add_di_plus_or_space(s, flgs, i, t);
 	if (flgs->width > i)
 		return (create_u_w_string(s, flgs, i));
 	return (s);

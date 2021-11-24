@@ -6,7 +6,7 @@
 /*   By: rbell <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:41:07 by rbell             #+#    #+#             */
-/*   Updated: 2021/11/16 16:43:39 by rbell            ###   ########.fr       */
+/*   Updated: 2021/11/24 10:54:29 by rbell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdarg.h>
 # include <limits.h>
 
-typedef struct	printf_var
+typedef struct printf_var
 {
 	char	f_correct;
 	char	f_space;
@@ -27,9 +27,9 @@ typedef struct	printf_var
 	char	f_prison;
 	char	f_prec;
 	int		width;
-	int 	prec;
+	int		prec;
 	ssize_t	tmp_res;
-} t_flags;
+}	t_flags;
 
 int		ft_printf(const char *form, ...);
 void	tereshkova(t_flags *flg, size_t *p_i, size_t *p_res, char begin_flg);
@@ -53,7 +53,7 @@ size_t	count_size(long int n, int base, t_flags *flgs);
 char	*create_x_w_string(char *s, t_flags *flgs, size_t i);
 size_t	print_u_num(va_list *arg, t_flags *flgs);
 char	*create_u_w_string(char *s, t_flags *flgs, size_t i);
-size_t 	add_di_plus_or_space(char *s, t_flags *flgs, int i, size_t *t);
+size_t	add_di_plus_or_space(char *s, t_flags *flgs, int i, size_t *t);
 char	*create_di_w_string(char *s, t_flags *flgs, size_t i);
 size_t	print_num(va_list *arg, t_flags *flgs);
 #endif

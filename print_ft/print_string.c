@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_string.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbell <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/24 11:08:35 by rbell             #+#    #+#             */
+/*   Updated: 2021/11/24 11:09:03 by rbell            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../ft_printf.h"
 
 static size_t	print_null_string(t_flags *flgs)
@@ -31,7 +43,7 @@ static size_t	print_null_string(t_flags *flgs)
 
 static void	print_width_string(const char *s, t_flags *flgs, size_t i)
 {
-	size_t cnt;
+	size_t	cnt;
 
 	cnt = -1;
 	if (flgs->f_minus)

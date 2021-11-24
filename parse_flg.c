@@ -6,7 +6,7 @@
 /*   By: rbell <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 16:55:41 by rbell             #+#    #+#             */
-/*   Updated: 2021/11/18 16:55:46 by rbell            ###   ########.fr       */
+/*   Updated: 2021/11/24 10:58:12 by rbell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	write_flags(char c, t_flags *flgs)
 
 char	parse_flags(const char *s, t_flags *flgs, size_t *i)
 {
-	while (s[++(*i)] == ' ' || s[*i] == '0' || s[*i] == '#' || s[*i] == '-' ||
+	while (s[++(*i)] == ' ' || s[*i] == '0' || s[*i] == '#' || s[*i] == '-' || \
 	s[*i] == '+')
 	{
 		write_flags(s[*i], flgs);
@@ -107,4 +107,3 @@ char	check_spec(t_flags *f, char c)
 		return (0);
 	return (1);
 }
-

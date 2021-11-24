@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_char.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbell <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/24 11:04:10 by rbell             #+#    #+#             */
+/*   Updated: 2021/11/24 11:04:56 by rbell            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../ft_printf.h"
 
-static void print_char_width(char c, size_t *cnt, t_flags *flgs)
+static void	print_char_width(char c, size_t *cnt, t_flags *flgs)
 {
 	if (flgs->f_minus)
 	{

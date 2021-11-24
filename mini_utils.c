@@ -6,13 +6,13 @@
 /*   By: rbell <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:51:11 by rbell             #+#    #+#             */
-/*   Updated: 2021/11/18 13:51:15 by rbell            ###   ########.fr       */
+/*   Updated: 2021/11/24 10:56:51 by rbell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void tereshkova(t_flags *flg, size_t *p_i, size_t *p_res, char begin_flg)
+void	tereshkova(t_flags *flg, size_t *p_i, size_t *p_res, char begin_flg)
 {
 	flg->f_correct = 0;
 	flg->f_space = 0;
@@ -29,7 +29,7 @@ void tereshkova(t_flags *flg, size_t *p_i, size_t *p_res, char begin_flg)
 	*p_res = 0;
 }
 
-size_t	print_percent(t_flags *flgs) // need corrective
+size_t	print_percent(t_flags *flgs)
 {
 	if (write(1, "%", 1) < 0)
 		flgs->f_correct = 'w';
@@ -43,8 +43,8 @@ void	print_no_width_x(unsigned long int p, t_flags *flgs, char *base, char f)
 		if (write(1, "0x", 2) < 0)
 			flgs->f_correct = 'w';
 	}
-	if (p/16 > 0)
-		print_no_width_x(p/16, flgs, base, 0);
+	if (p / 16 > 0)
+		print_no_width_x(p / 16, flgs, base, 0);
 	if (write(1, (base + (p % 16)), 1) < 0)
 		flgs->f_correct = 'w';
 }
